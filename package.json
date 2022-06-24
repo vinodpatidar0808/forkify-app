@@ -1,0 +1,24 @@
+{
+    "name": "forkify-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "parcel index.html",
+        "build": "parcel build index.html"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/vinodpatidar0808/forkify-app.git"
+    },
+    "author": "vinod patidar",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/vinodpatidar0808/forkify-app/issues"
+    },
+    "homepage": "https://github.com/vinodpatidar0808/forkify-app#readme",
+    "devDependencies": {
+        "@parcel/transformer-sass": "^2.6.2",
+        "parcel": "^2.6.2"
+    }
+}
