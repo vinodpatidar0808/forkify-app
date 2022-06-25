@@ -33,18 +33,12 @@ const controlRecipes = async function () {
         recipeView.render(model.state.recipe);
     } catch (err) {
         console.error(err);
+        recipeView.renderError();
     }
 };
 
-// controlRecipes();
+const init = function () {
+    recipeView.addHandlerRender(controlRecipes);
+};
 
-// ---TASK---:
-// hashchange is an event for detecting changes in url #part
-
-// we need load event because when we copy url and run it in another tab it doesn't work because hash is not changed
-// window.addEventListener('hashchange', controlRecipes);
-// window.addEventListener('load', controlRecipes);
-// what if we had to run controlRecipes fxn for many events: do like this
-['hashchange', 'load'].forEach(ev =>
-    window.addEventListener(ev, controlRecipes)
-);
+init();
