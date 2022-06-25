@@ -2,23 +2,19 @@
 
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
+import resultsView from './views/resultsView.js';
+import searchView from './views/searchView.js';
 
 // polyfilling packages
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-const recipeContainer = document.querySelector('.recipe');
-
-const timeout = function (s) {
-    return new Promise(function (_, reject) {
-        setTimeout(function () {
-            reject(
-                new Error(`Request took too long! Timeout after ${s} second`)
-            );
-        }, s * 1000);
-    });
-};
 
 ///////////////////////////////////////
+
+// not real js , this is from parcel
+if (module.hot) {
+    module.hot.accept();
+}
 
 //---TASK---: Loading recipe
 const controlRecipes = async function () {
@@ -37,8 +33,29 @@ const controlRecipes = async function () {
     }
 };
 
+const controlSearchResults = async function () {
+    try {
+        resultsView.renderSpinner();
+
+        // 1) get search query from searchView
+        const query = searchView.getQuery();
+        if (!query) return;
+
+        // 2) load search results
+        await model.loadSearchResults(query);
+
+        // 3) render results in UI
+        resultsView.render(model.state.search.result);
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+controlSearchResults('pizza');
+
 const init = function () {
     recipeView.addHandlerRender(controlRecipes);
+    searchView.addHandlerSearch(controlSearchResults);
 };
 
 init();
