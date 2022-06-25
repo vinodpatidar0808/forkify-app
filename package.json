@@ -19,6 +19,11 @@
     "homepage": "https://github.com/vinodpatidar0808/forkify-app#readme",
     "devDependencies": {
         "@parcel/transformer-sass": "^2.6.2",
-        "parcel": "^2.6.2"
+        "parcel": "^2.6.2",
+        "url": "^0.11.0"
+    },
+    "dependencies": {
+        "core-js": "^3.23.2",
+        "regenerator-runtime": "^0.13.9"
     }
 }
