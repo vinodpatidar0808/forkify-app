@@ -1,3 +1,5 @@
+//NOTE: api link:--> https://forkify-api.herokuapp.com/v2
+
 import icons from 'url:../img/icons.svg';
 // polyfilling packages
 import 'core-js/stable';
@@ -14,8 +16,6 @@ const timeout = function (s) {
     });
 };
 
-// https://forkify-api.herokuapp.com/v2
-
 ///////////////////////////////////////
 const renderSpinner = function (parentEl) {
     const markup = `      <div class="spinner">
@@ -29,10 +29,12 @@ const renderSpinner = function (parentEl) {
 
 //---TASK---: Loading recipe
 const showRecipe = async function () {
+    const id = window.location.hash.slice(1);
+    if (!id) return;
     try {
         renderSpinner(recipeContainer);
         const res = await fetch(
-            'https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886'
+            `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
         );
         const data = await res.json();
         if (!res.ok) throw new Error(`${data.message} (${res.status})`);
@@ -157,4 +159,11 @@ const showRecipe = async function () {
 
 showRecipe();
 
-// ---TASK---: rendering recipes
+// ---TASK---:
+// hashchange is an event for detecting changes in url #part
+
+// we need load event because when we copy url and run it in another tab it doesn't work because hash is not changed
+// window.addEventListener('hashchange', showRecipe);
+// window.addEventListener('load', showRecipe);
+// what if we had to run showRecipe fxn for many events: do like this
+['hash', 'load'].forEach(ev => window.addEventListener(ev, showRecipe));
