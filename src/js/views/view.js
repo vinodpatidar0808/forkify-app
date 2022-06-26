@@ -11,7 +11,7 @@ export default class View {
         // console.log(this._data);
         const markup = this._generateMarkup();
 
-        if(!render)return markup
+        if (!render) return markup;
         this._clear();
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
@@ -73,7 +73,7 @@ export default class View {
     }
 
     renderMessage(message = this._message) {
-        const markup = `                <div class="message">
+        const markup = `<div class="message">
                     <div>
                         <svg>
                             <use href="${icons}#icon-smile"></use>
@@ -83,6 +83,8 @@ export default class View {
                     ${message}
                     </p>
                 </div>`;
+        this._clear();
+        this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     renderSpinner() {
         const markup = `
