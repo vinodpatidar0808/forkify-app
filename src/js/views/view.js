@@ -14,6 +14,44 @@ export default class View {
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
 
+    updateView(data) {
+        // if (!data || (Array.isArray(data) && data.length === 0))
+        //     return this.renderError();
+        // console.log('data in recipeview render', data);
+        this._data = data;
+        const newMarkup = this._generateMarkup();
+
+        // converts the string newMarkup into real  dom object in memory
+        const newDOM = document
+            .createRange()
+            .createContextualFragment(newMarkup);
+        const newElements = Array.from(newDOM.querySelectorAll('*'));
+        const curElements = Array.from(
+            this._parentElement.querySelectorAll('*')
+        );
+        // console.log(newElements);
+        // console.log(curElements);
+
+        newElements.forEach((newEl, i) => {
+            const curEl = curElements[i];
+            // to compare node there is a method available in dom, content in nodes is compared
+            // console.log(newEl.isEqualNode(curEl));
+            // update changed text
+            if (
+                !newEl.isEqualNode(curEl) &&
+                newEl.firstChild?.nodeValue.trim() !== ''
+            ) {
+                curEl.textContent = newEl.textContent;
+            }
+            // update changed attributes
+            if (!newEl.isEqualNode(curEl)) {
+                Array.from(newEl.attributes).forEach(attr =>
+                    curEl.setAttribute(attr.name, attr.value)
+                );
+            }
+        });
+    }
+
     _clear() {
         this._parentElement.innerHTML = '';
     }
