@@ -3,13 +3,15 @@ import icons from 'url:../../img/icons.svg';
 // this class will be uses as parent class of other child views
 export default class View {
     _data;
-    render(data) {
+    render(data, render = true) {
         if (!data || (Array.isArray(data) && data.length === 0))
             return this.renderError();
         // console.log('data in recipeview render', data);
         this._data = data;
         // console.log(this._data);
         const markup = this._generateMarkup();
+
+        if(!render)return markup
         this._clear();
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
